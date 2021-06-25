@@ -1,0 +1,11 @@
+syntax = "proto3";
+package user;
+option go_package = "/user";
+
+message User {
+  string name = 1;
+}
+
+service UserService {
+  rpc SayHello(User) returns (User) {}
+}
