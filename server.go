@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"rakoon/rakoon-reborn/user"
 
 	"google.golang.org/grpc"
 )
@@ -17,11 +18,10 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	// s := user.Server{}
+	userService := user.UserService{}
 
 	grpcServer := grpc.NewServer()
 
-	// user.RegisterChatServiceServer(grpcServer, &s)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)

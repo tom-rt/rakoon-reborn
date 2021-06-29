@@ -6,10 +6,10 @@ import (
 	"golang.org/x/net/context"
 )
 
-type Server struct {
+type UserService struct {
 }
 
-func (s *Server) SayHello(ctx context.Context, in *User) (*User, error) {
+func (s *UserService) SayHello(ctx context.Context, in *User) (*User, error) {
 	log.Printf("Receive message body from client: %s", in.Name)
 	return &User{Name: "Hello From the Server!"}, nil
 }
