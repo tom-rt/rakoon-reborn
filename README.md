@@ -14,3 +14,6 @@ Modeles:
 protoc --go_out=. user.proto
 Services:
 protoc --go-grpc_out=. user.proto
+
+Troubleshoot:
+https://github.com/golang/protobuf/issues/795
