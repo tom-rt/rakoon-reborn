@@ -16,19 +16,19 @@ func main() {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", 9000))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
+	} else {
+		fmt.Println("Listening on 9000")
 	}
 
-	// userService := user.UserServiceServer{}
-	// userService := user.UserServiceServer{}
 	var service user.UserServiceServer
-
-	// fmt.Println(userService)
 
 	grpcServer := grpc.NewServer()
 	user.RegisterUserServiceServer(grpcServer, service)
 
-
+	// looping here
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
+	} else {
+		fmt.Println("Server is running")
 	}
 }
