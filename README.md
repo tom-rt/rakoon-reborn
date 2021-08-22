@@ -16,4 +16,6 @@ Services:
 protoc --go-grpc_out=. user.proto
 
 Troubleshoot:
-https://github.com/golang/protobuf/issues/795
+https://github.com/golang/protobuf/issues/795:
+export PATH=$PATH:$HOME/go/bin, in order to add the GOPATH and
+export PATH=$PATH:/usr/local/go/bin, in order to add GOROOT
