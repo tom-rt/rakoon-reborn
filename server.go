@@ -40,7 +40,8 @@ func main() {
 	// service := new(user.UserServiceServer)
 	// service := user.UserServiceServer{}
 	// service := user.UserServiceServer{user.SayHello, user.user.UnimplementedUserServiceServer{}}
-	var service user.UserServiceServer
+	// var service user.UnimplementedUserServiceServer
+	var service user.UnimplementedUserServiceServer
 
 	grpcServer := grpc.NewServer()
 	user.RegisterUserServiceServer(grpcServer, service)

@@ -6,6 +6,10 @@ import (
 	"golang.org/x/net/context"
 )
 
+// type UserServiceInterface interface {
+// 	SayHello()
+// }
+
 type UserService struct {
 }
 
