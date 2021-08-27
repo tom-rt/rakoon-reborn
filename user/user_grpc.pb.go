@@ -18,7 +18,13 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	SayHello(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error)
+	// A simple RPC.
+	//
+	// Obtains the feature at a given position.
+	//
+	// A feature with an empty name is returned if there's no feature at the given
+	// position.
+	SayHello(ctx context.Context, in *Input, opts ...grpc.CallOption) (*Output, error)
 }
 
 type userServiceClient struct {
@@ -29,8 +35,8 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) SayHello(ctx context.Context, in *User, opts ...grpc.CallOption) (*User, error) {
-	out := new(User)
+func (c *userServiceClient) SayHello(ctx context.Context, in *Input, opts ...grpc.CallOption) (*Output, error) {
+	out := new(Output)
 	err := c.cc.Invoke(ctx, "/user.UserService/SayHello", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -42,7 +48,13 @@ func (c *userServiceClient) SayHello(ctx context.Context, in *User, opts ...grpc
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	SayHello(context.Context, *User) (*User, error)
+	// A simple RPC.
+	//
+	// Obtains the feature at a given position.
+	//
+	// A feature with an empty name is returned if there's no feature at the given
+	// position.
+	SayHello(context.Context, *Input) (*Output, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -50,7 +62,7 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) SayHello(context.Context, *User) (*User, error) {
+func (UnimplementedUserServiceServer) SayHello(context.Context, *Input) (*Output, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
@@ -67,7 +79,7 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 }
 
 func _UserService_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
+	in := new(Input)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -79,7 +91,7 @@ func _UserService_SayHello_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/user.UserService/SayHello",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).SayHello(ctx, req.(*User))
+		return srv.(UserServiceServer).SayHello(ctx, req.(*Input))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -97,5 +109,5 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "user.proto",
+	Metadata: "user/user.proto",
 }

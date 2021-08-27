@@ -1,21 +1,3 @@
-# rakoon-reborn
-
-New version with file streaming using gRPC and a brand new react client !
-
-protoc --go_out=. user.proto
-protoc --go_out=user user.proto
-
-protoc --go-grpc_out=. user.proto
-protoc --go-grpc_out=user user.proto
-
-protoc --go_out=plugins=grpc:. user.proto
-
-Modeles:
-protoc --go_out=. user.proto
-Services:
-protoc --go-grpc_out=. user.proto
-
-Troubleshoot:
-https://github.com/golang/protobuf/issues/795:
-export PATH=$PATH:$HOME/go/bin, in order to add the GOPATH and
-export PATH=$PATH:/usr/local/go/bin, in order to add GOROOT
+protoc --go_out=. --go_opt=paths=source_relative \ 
+    --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+    user/user.proto
