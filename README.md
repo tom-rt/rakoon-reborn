@@ -4,3 +4,6 @@ protoc --go_out=. --go_opt=paths=source_relative \
 
 protoc --go-grpc_out=. user/user.proto
 protoc --go_out=. user/user.proto
+
+protoc --go-grpc_out=server protos/user.proto
+protoc --go_out=server protos/user.proto

@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	pb "rakoon/rakoon-reborn/user"
+	pb "rakoon/rakoon-reborn/server/user"
 
 	"google.golang.org/grpc"
 )
