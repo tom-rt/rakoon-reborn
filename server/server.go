@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	pb "rakoon/rakoon-reborn/server/user"
+	userpb "rakoon/rakoon-reborn/user/userpb"
 
 	"google.golang.org/grpc"
 )
@@ -21,13 +21,13 @@ var (
 )
 
 type userServiceServer struct {
-	pb.UnimplementedUserServiceServer
+	userpb.UnimplementedUserServiceServer
 }
 
 // GetFeature returns the feature at the given point.
-func (s *userServiceServer) SayHello(ctx context.Context, point *pb.Input) (*pb.Output, error) {
+func (s *userServiceServer) SayHello(ctx context.Context, point *userpb.Input) (*userpb.Output, error) {
 	fmt.Println("HELLO")
-	return &pb.Output{Output: "Hello From the Server!"}, nil
+	return &userpb.Output{Output: "Hello From the Server!"}, nil
 }
 
 func newServer() *userServiceServer {
@@ -40,27 +40,12 @@ func newServer() *userServiceServer {
 func main() {
 	flag.Parse()
     fmt.Println(*port)
-    // fmt.Sprintf("localhost:%d", *port)
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", *port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	// var opts []grpc.ServerOption
-	// if *tls {
-	// 	if *certFile == "" {
-	// 		*certFile = data.Path("x509/server_cert.pem")
-	// 	}
-	// 	if *keyFile == "" {
-	// 		*keyFile = data.Path("x509/server_key.pem")
-	// 	}
-	// 	creds, err := credentials.NewServerTLSFromFile(*certFile, *keyFile)
-	// 	if err != nil {
-	// 		log.Fatalf("Failed to generate credentials %v", err)
-	// 	}
-	// 	opts = []grpc.ServerOption{grpc.Creds(creds)}
-	// }
-	// grpcServer := grpc.NewServer(opts...)
+
 	grpcServer := grpc.NewServer()
-	pb.RegisterUserServiceServer(grpcServer, newServer())
+	userpb.RegisterUserServiceServer(grpcServer, newServer())
 	grpcServer.Serve(lis)
 }
