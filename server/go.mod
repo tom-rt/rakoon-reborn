@@ -1,4 +1,4 @@
-module rakoon/rakoon-reborn
+module rakoon-reborn
 
 go 1.16
 

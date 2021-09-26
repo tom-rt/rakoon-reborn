@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "/pbs";
+
+package file;
+
+service FileService {
+  rpc Upload(stream Chunk) returns (Response) {}
+  rpc Download(FilePath) returns (stream Chunk) {}
+}
+
+message Chunk {
+  bytes Content = 1;
+}
+
+enum StatusCode {
+  Unknown = 0;
+  Ok = 1;
+  Failed = 2;
+}
+
+message Response {
+  string Message = 1;
+  int64 Size = 2;
+}
+
+message FilePath {
+  string Path = 1;
+  string FileName = 2;
+}
