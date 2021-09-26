@@ -40,8 +40,8 @@ func (c *fileServiceClient) Upload(ctx context.Context, opts ...grpc.CallOption)
 }
 
 type FileService_UploadClient interface {
-	Send(*Chunk) error
-	CloseAndRecv() (*Status, error)
+	Send(*FileInput) error
+	CloseAndRecv() (*Response, error)
 	grpc.ClientStream
 }
 
@@ -49,15 +49,15 @@ type fileServiceUploadClient struct {
 	grpc.ClientStream
 }
 
-func (x *fileServiceUploadClient) Send(m *Chunk) error {
+func (x *fileServiceUploadClient) Send(m *FileInput) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *fileServiceUploadClient) CloseAndRecv() (*Status, error) {
+func (x *fileServiceUploadClient) CloseAndRecv() (*Response, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(Status)
+	m := new(Response)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func (c *fileServiceClient) Download(ctx context.Context, in *FilePath, opts ...
 }
 
 type FileService_DownloadClient interface {
-	Recv() (*Chunk, error)
+	Recv() (*FileInput, error)
 	grpc.ClientStream
 }
 
@@ -88,8 +88,8 @@ type fileServiceDownloadClient struct {
 	grpc.ClientStream
 }
 
-func (x *fileServiceDownloadClient) Recv() (*Chunk, error) {
-	m := new(Chunk)
+func (x *fileServiceDownloadClient) Recv() (*FileInput, error) {
+	m := new(FileInput)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -133,8 +133,8 @@ func _FileService_Upload_Handler(srv interface{}, stream grpc.ServerStream) erro
 }
 
 type FileService_UploadServer interface {
-	SendAndClose(*Status) error
-	Recv() (*Chunk, error)
+	SendAndClose(*Response) error
+	Recv() (*FileInput, error)
 	grpc.ServerStream
 }
 
@@ -142,12 +142,12 @@ type fileServiceUploadServer struct {
 	grpc.ServerStream
 }
 
-func (x *fileServiceUploadServer) SendAndClose(m *Status) error {
+func (x *fileServiceUploadServer) SendAndClose(m *Response) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *fileServiceUploadServer) Recv() (*Chunk, error) {
-	m := new(Chunk)
+func (x *fileServiceUploadServer) Recv() (*FileInput, error) {
+	m := new(FileInput)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func _FileService_Download_Handler(srv interface{}, stream grpc.ServerStream) er
 }
 
 type FileService_DownloadServer interface {
-	Send(*Chunk) error
+	Send(*FileInput) error
 	grpc.ServerStream
 }
 
@@ -171,7 +171,7 @@ type fileServiceDownloadServer struct {
 	grpc.ServerStream
 }
 
-func (x *fileServiceDownloadServer) Send(m *Chunk) error {
+func (x *fileServiceDownloadServer) Send(m *FileInput) error {
 	return x.ServerStream.SendMsg(m)
 }
 

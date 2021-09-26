@@ -5,12 +5,13 @@ option go_package = "/pbs";
 package file;
 
 service FileService {
-  rpc Upload(stream Chunk) returns (Response) {}
-  rpc Download(FilePath) returns (stream Chunk) {}
+  rpc Upload(stream FileInput) returns (Response) {}
+  rpc Download(FilePath) returns (stream FileInput) {}
 }
 
-message Chunk {
-  bytes Content = 1;
+message FileInput {
+  string FileName = 1;
+  bytes Content = 2;
 }
 
 enum StatusCode {
