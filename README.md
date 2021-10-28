@@ -15,6 +15,8 @@ docker run --network=host grpc-envoy:1.0
 envoy -c envoy.yaml
 # SERVER
 go get .
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+export PATH="${PATH}:${HOME}/go/bin"
 go run server.go
 # CLIENT
 npm install ts-protoc-gen
@@ -38,10 +40,10 @@ cd protos
 PROTOC_GEN_TS_PATH="../client/node_modules/.bin/protoc-gen-ts"
 OUT_DIR="../client/src/pbs"
 ### models:
-protoc --plugin="protoc-gen-ts=${PROTOC_GEN_TS_PATH}" --js_out="import_style=commonjs,binary:${OUT_DIR}" --ts_out="${OUT_DIR}" base.proto 
+protoc --plugin="protoc-gen-ts=${PROTOC_GEN_TS_PATH}" --js_out="import_style=commonjs,binary:${OUT_DIR}" --ts_out="${OUT_DIR}" file.proto 
 
 ### services:
-protoc --plugin="protoc-gen-ts=${PROTOC_GEN_TS_PATH}" --js_out="import_style=commonjs,binary:${OUT_DIR}" --ts_out="service=grpc-web:${OUT_DIR}" base.proto
+protoc --plugin="protoc-gen-ts=${PROTOC_GEN_TS_PATH}" --js_out="import_style=commonjs,binary:${OUT_DIR}" --ts_out="service=grpc-web:${OUT_DIR}" file.proto
 ## Server:
 protoc --go-grpc_out=../server file.proto
 protoc --go_out=../server file.proto
