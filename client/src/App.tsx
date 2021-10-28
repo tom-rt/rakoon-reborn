@@ -2,7 +2,7 @@ import { grpc } from '@improbable-eng/grpc-web';
 import './App.css';
 import { Input, Output } from "./pbs/base_pb"
 import { BaseServiceClient, ServiceError } from './pbs/base_pb_service';
-import React from 'react'
+import React from 'react';
 
 class App extends React.Component {
   constructor(props: any) {
@@ -11,7 +11,9 @@ class App extends React.Component {
   }
 
   async pingServer() {
-    const client = new BaseServiceClient('http://localhost:8000')
+    const serverUrl: string = process.env.REACT_APP_SERVER_URL || "";
+    console.log("URL", process.env.REACT_APP_SERVER_URL)
+    const client = new BaseServiceClient(serverUrl)
     const request = new Input();
     const metadata: grpc.Metadata = new grpc.Metadata();
 
