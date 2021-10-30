@@ -1,7 +1,8 @@
 import { grpc } from '@improbable-eng/grpc-web';
 import { Input, Output } from "./pbs/base_pb"
 import { BaseServiceClient, ServiceError } from './pbs/base_pb_service';
-import TopBar from './components/topBar/TopBar';
+import TopBar from './components/top-bar/TopBar';
+import MainContainer from './components/main-container/MainContainer';
 import React from 'react';
 
 class App extends React.Component {
@@ -38,9 +39,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App bg-gray-500">
           <TopBar />
-        Ping rpc example !
+          <MainContainer />
       </div>
     );
   }

@@ -4,9 +4,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-import "./TopBar.css";
+import "./MainContainer.css";
 
-class TopBar extends React.Component {
+class MainContainer extends React.Component {
   constructor(props: any) {
     super(props)
     this.state = {}
@@ -20,12 +20,14 @@ class TopBar extends React.Component {
 
   render() {
     return (
-      <div className="TopBar bg-red-500">
-          Topbar
+      <div className="MainContainer bg-red-700 flex h-full w-full">
+        <div className="title text-4xl text-gray-50">
+          Main
+        </div>
       </div>
     );
   }
 
 }
 
-export default TopBar;
+export default MainContainer;
