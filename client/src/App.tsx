@@ -39,7 +39,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App bg-gray-500">
+      <div className="App bg-gray-50">
           <TopBar />
           <MainContainer />
       </div>
