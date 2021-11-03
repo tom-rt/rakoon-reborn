@@ -27,7 +27,7 @@ class MainContainer extends React.Component {
 
   render() {
     return (
-      <div className="MainContainer bg-gray-50 flex flex-col w-full pt-16">
+      <div className="MainContainer bg-gray-50 flex flex-col w-full pt-24 px-24 pb-8">
         <Router>
         <Switch>
           <Route path="/login">

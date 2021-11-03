@@ -21,7 +21,7 @@ class TopBar extends React.Component {
   render() {
     return (
       <div className="TopBar bg-green-700 h-16 px-3 py-3 flex fixed w-full">
-        <div className="title text-4xl text-gray-100">
+        <div className="rakoon text-4xl text-gray-100">
           Rakoon
         </div>
       </div>
