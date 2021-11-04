@@ -19,7 +19,7 @@ class Login extends React.Component {
     return (
       <div className="Login flex w-full">
         <div className="w-full flex flex-col rounded px-4 py-4">
-          <div className="text-4xl font-black mb-3">
+          <div className="fredoka text-4xl mb-3">
             Connexion:
           </div>
           <div className="">
