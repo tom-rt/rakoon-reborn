@@ -22,17 +22,22 @@ class Login extends React.Component {
           <div className="fredoka text-4xl mb-3">
             Connexion:
           </div>
-          <div className="">
+          <div>
             Identifiant:
             </div>
             <div className="mb-2">
-            <input className="w-2/4 border border-green-500 border-opactity-100 rounded"></input>
+            <input className="w-2/4 border border-gray-700 border-opactity-100 rounded"></input>
           </div>
-          <div className="">
+          <div>
             Mot de passe:
           </div>
-          <div className="">
-            <input className="w-2/4 border border-green-500 border-opactity-100 rounded"></input>
+          <div className="mb-2">
+            <input className="w-2/4 border border-gray-700 border-opactity-100 rounded"></input>
+          </div>
+          <div>
+            <button className="p-2 text-gray-100 bg-blue-500 rounded">
+              Connexion
+            </button>
           </div>
         </div>
       </div>
