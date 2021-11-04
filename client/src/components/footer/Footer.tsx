@@ -15,7 +15,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <div className="Footer bg-green-700 h-16 px-3 py-3 fixed bottom-0 w-full">
+      <div className="Footer bg-gradient-to-r from-red-500 to-green-500 h-16 px-3 py-3 fixed bottom-0 w-full">
       </div>
     );
   }

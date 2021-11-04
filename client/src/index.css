@@ -12,3 +12,8 @@ body > #root > div {
 * {
   font-family: 'Ubuntu', sans-serif;
 }
+
+.fredoka {
+  /* font-family: 'Pacifico', cursive; */
+  font-family: 'Fredoka One', cursive;
+};
