@@ -2,6 +2,7 @@ import { grpc } from '@improbable-eng/grpc-web';
 import { Input, Output } from "./pbs/base_pb"
 import { BaseServiceClient, ServiceError } from './pbs/base_pb_service';
 import TopBar from './components/top-bar/TopBar';
+import Footer from './components/footer/Footer';
 import MainContainer from './components/main-container/MainContainer';
 import React from 'react';
 
@@ -42,6 +43,7 @@ class App extends React.Component {
       <div className="App bg-gray-50">
           <TopBar />
           <MainContainer />
+          <Footer />
       </div>
     );
   }
