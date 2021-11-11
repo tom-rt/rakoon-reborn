@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from "prop-types";
 
 class Footer extends React.Component {
   constructor(props: any) {
@@ -8,7 +7,6 @@ class Footer extends React.Component {
   }
 
   componentDidMount() {
-      console.log("did mount");
   }
 
   componentWillUnmount() {  }

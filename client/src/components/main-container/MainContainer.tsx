@@ -1,17 +1,11 @@
-// import { grpc } from '@improbable-eng/grpc-web';
-// import { Input, Output } from "./pbs/base_pb"
-// import { BaseServiceClient, ServiceError } from './pbs/base_pb_service';
 import React from 'react';
-import PropTypes from "prop-types";
 import Login from '../login/Login';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
-import "./MainContainer.css";
 
 class MainContainer extends React.Component {
   constructor(props: any) {
@@ -20,7 +14,6 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-      console.log("did mount");
   }
 
   componentWillUnmount() {  }

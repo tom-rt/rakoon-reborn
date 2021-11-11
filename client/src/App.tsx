@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   componentDidMount() { 
-    this.pingServer()
+    // this.pingServer()
   }
 
   componentWillUnmount() {  }
