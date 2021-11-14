@@ -2,13 +2,14 @@ import React, { FormEvent } from "react";
 
 class Login extends React.Component<
   {},
-  { userName: string; password: string }
+  { userName: string; password: string; isFormValid: boolean }
 > {
   constructor(props: any) {
     super(props);
     this.state = {
       userName: "",
       password: "",
+      isFormValid: false,
     };
   }
 
@@ -16,21 +17,28 @@ class Login extends React.Component<
     event.preventDefault();
     console.log(this.state);
     console.log("submit");
+  };
+  
+  checkFormValidity = () => {
+    if (this.state.userName.length === 0 || this.state.password.length === 0) {
+      this.setState({ isFormValid: false });
+    } else {
+      this.setState({ isFormValid: true });
+    }
   }
 
-  handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name: string = e.target.name;
     const value: string = e.target.value;
 
-    // Nasty workaround, see following bug:
+    // Nasty workaround (as any), see following bug:
     // https://github.com/Microsoft/TypeScript/issues/13948
-    this.setState({ [name]: value } as any)
-  }
+    this.setState({ [name]: value} as any, this.checkFormValidity);
+  };
 
+  componentDidMount = () => {};
 
-  componentDidMount = () => {}
-
-  componentWillUnmount = () => {}
+  componentWillUnmount = () => {};
 
   render = () => {
     return (
@@ -42,13 +50,15 @@ class Login extends React.Component<
             <div className="mb-2">
               <input
                 name="userName"
+                type="text"
                 className="w-2/4 border border-gray-700 border-opactity-100 rounded pl-1"
                 onChange={this.handleInputChange}
-                ></input>
+              ></input>
             </div>
             <div>Mot de passe:</div>
             <div className="mb-2">
               <input
+                name="password"
                 type="password"
                 className="w-2/4 border border-gray-700 border-opactity-100 rounded pl-1"
                 onChange={this.handleInputChange}
@@ -57,7 +67,13 @@ class Login extends React.Component<
             <div>
               <button
                 type="submit"
-                className="p-2 text-gray-100 bg-blue-500 rounded"
+                className={
+                  "p-2 text-gray-100 rounded " +
+                  (this.state.isFormValid
+                    ? "bg-blue-500"
+                    : "bg-gray-300 cursor-default")
+                }
+                disabled={!this.state.isFormValid}
               >
                 Connexion
               </button>
@@ -66,7 +82,7 @@ class Login extends React.Component<
         </div>
       </div>
     );
-  }
+  };
 }
 
 export default Login;
