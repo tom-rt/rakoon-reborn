@@ -1,8 +1,9 @@
 import React, { FormEvent } from "react";
+import { GrpcService } from "../../services/grpc.service";
 
 class Login extends React.Component<
   {},
-  { userName: string; password: string; isFormValid: boolean }
+  { userName: string; password: string; isFormValid: boolean, grpcService: GrpcService }
 > {
   constructor(props: any) {
     super(props);
@@ -10,6 +11,7 @@ class Login extends React.Component<
       userName: "",
       password: "",
       isFormValid: false,
+      grpcService: new GrpcService()
     };
   }
 
@@ -17,6 +19,7 @@ class Login extends React.Component<
     event.preventDefault();
     console.log(this.state);
     console.log("submit");
+    this.state.grpcService.connect(this.state.userName, this.state.password)
   };
   
   checkFormValidity = () => {
