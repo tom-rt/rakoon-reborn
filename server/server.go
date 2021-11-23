@@ -6,6 +6,7 @@ import (
 	"net"
 
 	file "rakoon-reborn/feature/file"
+	user "rakoon-reborn/feature/user"
 	pbs "rakoon-reborn/pbs"
 
 	"google.golang.org/grpc"
@@ -19,8 +20,12 @@ func main() {
 	}
 
 	var fileService file.FileServiceServer = file.FileServiceServer{}
+	var userService user.UserServiceServer = user.UserServiceServer{}
 
 	grpcServer := grpc.NewServer()
+
 	pbs.RegisterFileServiceServer(grpcServer, fileService)
+	pbs.RegisterUserServiceServer(grpcServer, userService)
+
 	grpcServer.Serve(lis)
 }

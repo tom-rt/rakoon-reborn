@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "/pbs";
+
+package user;
+
+service UserService {
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+}
+
+message LoginRequest {
+  string UserName = 1;
+  string Password = 2;
+}
+
+message LoginResponse {
+    bool granted = 1;
+    string token = 2;
+  }
