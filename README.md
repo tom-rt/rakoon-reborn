@@ -36,7 +36,7 @@ npm start
 # PROTOS
 
 cd protos
-## Client pbd generation:
+## Client pbs generation:
 PROTOC_GEN_TS_PATH="../client/node_modules/.bin/protoc-gen-ts"
 OUT_DIR="../client/src/pbs"
 ### models:
