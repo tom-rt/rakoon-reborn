@@ -1,0 +1,12 @@
+BEGIN;
+
+DROP TABLE IF EXISTS rakoon_user;
+
+CREATE TABLE rakoon_user (
+    id INTEGER UNIQUE PRIMARY KEY,
+    username text,
+    password text,
+    salt text
+);
+
+COMMIT;
