@@ -19,7 +19,8 @@ class Login extends React.Component<
     event.preventDefault();
     console.log(this.state);
     console.log("submit");
-    this.state.grpcService.connect(this.state.userName, this.state.password)
+    // this.state.grpcService.login(this.state.userName, this.state.password)
+    this.state.grpcService.signUp(this.state.userName, this.state.password, true)
   };
   
   checkFormValidity = () => {

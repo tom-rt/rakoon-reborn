@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 
+	"rakoon-reborn/feature/db"
 	file "rakoon-reborn/feature/file"
 	user "rakoon-reborn/feature/user"
 	pbs "rakoon-reborn/pbs"
@@ -23,6 +24,7 @@ func main() {
 	var userService user.UserServiceServer = user.UserServiceServer{}
 
 	grpcServer := grpc.NewServer()
+	db.InitDb()
 
 	pbs.RegisterFileServiceServer(grpcServer, fileService)
 	pbs.RegisterUserServiceServer(grpcServer, userService)

@@ -6,15 +6,26 @@ package user;
 
 service UserService {
   rpc Login(LoginRequest) returns (LoginResponse) {}
-  rpc SignUp(LoginRequest) returns (LoginResponse) {}
+  rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
 }
 
+// LOGIN
 message LoginRequest {
   string UserName = 1;
   string Password = 2;
 }
-
 message LoginResponse {
-    bool granted = 1;
-    string token = 2;
-  }
+  bool granted = 1;
+  string token = 2;
+}
+
+// SIGN UP
+message SignUpRequest {
+  string UserName = 1;
+  string Password = 2;
+  bool IsAdmin = 3;
+}
+message SignUpResponse {
+  int64 code = 1;
+  string message = 2;
+}

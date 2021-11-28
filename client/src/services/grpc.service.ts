@@ -1,5 +1,5 @@
 import { grpc } from '@improbable-eng/grpc-web';
-import { LoginRequest, LoginResponse } from "../pbs/user_pb"
+import { LoginRequest, LoginResponse, SignUpRequest, SignUpResponse } from "../pbs/user_pb"
 import { UserServiceClient, ServiceError } from '../pbs/user_pb_service';
 
 export class GrpcService {
@@ -17,7 +17,7 @@ export class GrpcService {
       return metadata
     }
 
-    async connect(username: string, password: string) {
+    async login(username: string, password: string) {
       const request = new LoginRequest();
       const metadata: grpc.Metadata = this.getMetadata();
 
@@ -26,13 +26,29 @@ export class GrpcService {
       
       await this.client.login(request, (error: ServiceError | null, res: LoginResponse | null) => {
         if (error) {
-          console.log("ici", error)
           console.error(`Error ${error.code}: ${error.message}`)
         } else {
-          console.log("la")
           const granted: boolean | undefined = res?.getGranted()
           console.log("Server responded granted:", granted)  
         }
       });
     }
+
+    async signUp(username: string, password: string, isAdmin: boolean = false) {
+      const request = new SignUpRequest();
+
+      request.setUsername(username)
+      request.setPassword(password)
+      request.setIsadmin(isAdmin)
+      
+      await this.client.signUp(request, (error: ServiceError | null, res: SignUpResponse | null) => {
+        if (error) {
+          console.error(`Error ${error.code}: ${error.message}`)
+        } else {
+          const code: number | undefined = res?.getCode()
+          console.log("Server responded with code:", code)  
+        }
+      });
+    }
+
   }
