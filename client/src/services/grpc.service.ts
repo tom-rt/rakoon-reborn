@@ -45,8 +45,7 @@ export class GrpcService {
         if (error) {
           console.error(`Error ${error.code}: ${error.message}`)
         } else {
-          const code: number | undefined = res?.getCode()
-          console.log("Server responded with code:", code)  
+          console.log("Server responded:", res?.getMessage())
         }
       });
     }

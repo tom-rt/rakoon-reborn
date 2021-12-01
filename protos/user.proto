@@ -15,8 +15,8 @@ message LoginRequest {
   string Password = 2;
 }
 message LoginResponse {
-  bool granted = 1;
-  string token = 2;
+  bool Granted = 1;
+  string Token = 2;
 }
 
 // SIGN UP
@@ -26,6 +26,5 @@ message SignUpRequest {
   bool IsAdmin = 3;
 }
 message SignUpResponse {
-  int64 code = 1;
-  string message = 2;
+  string Message = 1;
 }

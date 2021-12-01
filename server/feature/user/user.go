@@ -10,6 +10,8 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type UserServiceServer struct {
@@ -19,7 +21,7 @@ type UserServiceServer struct {
 // Login Rpc
 func (s UserServiceServer) Login(ctx context.Context, input *pbs.LoginRequest) (*pbs.LoginResponse, error) {
 
-	// db.SignUserUp(input.UserName, input.Password)	
+	// db.SignUserUp(input.UserName, input.Password)
 
 	return &pbs.LoginResponse{Granted: true, Token: "token"}, nil
 }
@@ -29,26 +31,25 @@ func (s UserServiceServer) SignUp(ctx context.Context, input *pbs.SignUpRequest)
 	user, err := db.GetUserByName(input.UserName)
 
 	// Check err ?
-	if (user.Id != 0) {
+	if user.Id != 0 {
 		fmt.Println("taken", user.Id, err)
-		return &pbs.SignUpResponse{Code: 401, Message: "Username already taken."}, nil
+		return nil, status.Error(codes.PermissionDenied, "Username already taken.") // return &pbs.SignUpResponse{Code: 401, Message: "Username already taken."}, nil
 	}
-	fmt.Println("create")
 
 	var salt string = generateSalt(10)
 	hash, err := generateHash(input.Password + salt)
 
-	if (err != nil) {
-		return &pbs.SignUpResponse{Code: 500, Message: "Error hashing password."}, nil
+	if err != nil {
+		return &pbs.SignUpResponse{Message: "Error hashing password."}, nil
 	}
 
 	err = db.SignUserUp(input.UserName, hash, salt, input.IsAdmin)
 
-	if (err != nil) {
-		return &pbs.SignUpResponse{Code: 500, Message: "Error inserting user in db."}, nil
+	if err != nil {
+		return &pbs.SignUpResponse{Message: "Error inserting user in db."}, nil
 	}
 
-	return &pbs.SignUpResponse{Code: 200}, nil
+	return &pbs.SignUpResponse{Message: "Signed up successfully"}, nil
 }
 
 // HashPassword function
