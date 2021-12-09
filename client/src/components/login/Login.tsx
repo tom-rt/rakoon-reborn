@@ -19,21 +19,23 @@ class Login extends React.Component<
   handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     this.state.grpcService.login(this.state.userName, this.state.password)
+    this.cleanForm()
   };
 
   signUp = (event: FormEvent) => {
     event.preventDefault();
-
     this.state.grpcService.signUp(this.state.userName, this.state.password, true)
+    this.cleanForm()
+  };
 
+  cleanForm = () => {
     this.setState({
       userName: '',
       password: '',
       isFormValid: false
-    }, () => {
-      console.log(this.state)
     });
-  };
+
+  }
 
   checkFormValidity = () => {
     if (this.state.userName.length === 0 || this.state.password.length === 0) {

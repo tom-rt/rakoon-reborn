@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"math/rand"
 	db "rakoon-reborn/feature/db"
+	"time"
 
 	pbs "rakoon-reborn/pbs"
 
+	jwt "github.com/golang-jwt/jwt"
 	_ "github.com/mattn/go-sqlite3"
 	"golang.org/x/crypto/bcrypt"
 	"google.golang.org/grpc/codes"
@@ -18,12 +20,36 @@ type UserServiceServer struct {
 	pbs.UnimplementedUserServiceServer
 }
 
+var hmacSampleSecret []byte = []byte("mega secret key")
+
 // Login Rpc
 func (s UserServiceServer) Login(ctx context.Context, input *pbs.LoginRequest) (*pbs.LoginResponse, error) {
+	user, err := db.GetUserByName(input.UserName)
 
-	// db.SignUserUp(input.UserName, input.Password)
+	fmt.Println(user, err)
+	if err != nil {
+		return nil, status.Error(codes.NotFound, "User not found.")
+	}
 
-	return &pbs.LoginResponse{Granted: true, Token: "token"}, nil
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password+user.Salt))
+
+	if err != nil {
+		return nil, status.Error(codes.NotFound, "Wrong password.")
+	} else {
+
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+			"foo": "bar",
+			"nbf": time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
+		})
+
+		tokenString, err := token.SignedString(hmacSampleSecret)
+
+		if err != nil {
+			return nil, status.Error(codes.Internal, "Error generating token.")
+		}
+
+		return &pbs.LoginResponse{Token: tokenString}, nil
+	}
 }
 
 // Sign Up Rpc
@@ -33,7 +59,8 @@ func (s UserServiceServer) SignUp(ctx context.Context, input *pbs.SignUpRequest)
 	// Check err ?
 	if user.Id != 0 {
 		fmt.Println("taken", user.Id, err)
-		return nil, status.Error(codes.PermissionDenied, "Username already taken.") // return &pbs.SignUpResponse{Code: 401, Message: "Username already taken."}, nil
+		return nil, status.Error(codes.PermissionDenied, "Username already taken.")
+		// return &pbs.SignUpResponse{Code: 401, Message: "Username already taken."}, nil
 	}
 
 	var salt string = generateSalt(10)
