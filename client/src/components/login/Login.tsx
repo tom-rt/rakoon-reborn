@@ -16,7 +16,7 @@ class Login extends React.Component<
     };
   }
 
-  handleSubmit = (event: FormEvent) => {
+  login = async (event: FormEvent) => {
     event.preventDefault();
     this.state.grpcService.login(this.state.userName, this.state.password)
     this.cleanForm()
@@ -63,7 +63,7 @@ class Login extends React.Component<
       <div className="Login flex w-full">
         <div className="w-full flex flex-col rounded px-4 py-4">
           <div className="fredoka text-4xl mb-3">Connexion:</div>
-          <form onSubmit={this.handleSubmit.bind(this)}>
+          <form onSubmit={this.login.bind(this)}>
             <div>Identifiant:</div>
             <div className="mb-2">
               <input

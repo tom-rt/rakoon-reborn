@@ -17,20 +17,16 @@ export class GrpcService {
       return metadata
     }
 
-    async login(username: string, password: string) {
+    // async login(username: string, password: string): Promise<{err: ServiceError | null, res: LoginResponse | null}> {
+      async login(username: string, password: string) {
       const request = new LoginRequest();
       const metadata: grpc.Metadata = this.getMetadata();
 
       request.setUsername(username)
       request.setPassword(password)
-      
-      await this.client.login(request, (error: ServiceError | null, res: LoginResponse | null) => {
-        if (error) {
-          console.error(`Error ${error.code}: ${error.message}`)
-        } else {
-          const granted: boolean | undefined = res?.getGranted()
-          console.log("Server responded granted:", granted)  
-        }
+
+      const resp: any = await this.client.login(request, (err: ServiceError | null, res: LoginResponse | null) => {
+        console.log("icicici")
       });
     }
 
