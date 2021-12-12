@@ -1,6 +1,8 @@
 import React, { FormEvent } from "react";
 import { createImportSpecifier } from "typescript";
 import { GrpcService } from "../../services/grpc.service";
+import { LoginRequest, LoginResponse, SignUpRequest, SignUpResponse } from "../../pbs/user_pb"
+import { UserServiceClient, ServiceError } from '../../pbs/user_pb_service';
 
 class Login extends React.Component<
   {},
@@ -16,11 +18,20 @@ class Login extends React.Component<
     };
   }
 
-  login = async (event: FormEvent) => {
+  login = (event: FormEvent) => {
     event.preventDefault();
-    this.state.grpcService.login(this.state.userName, this.state.password)
+    this.state.grpcService.login(this.state.userName, this.state.password, this.loginCallback)
     this.cleanForm()
   };
+
+  loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
+    if (err) {
+      console.log("error occured while logging in:", err)
+    } else {
+      console.log("logging responded granted: ", resp?.getGranted())
+      console.log("logging responded token: ", resp?.getToken())
+    }
+  }
 
   signUp = (event: FormEvent) => {
     event.preventDefault();

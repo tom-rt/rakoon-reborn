@@ -17,17 +17,11 @@ export class GrpcService {
       return metadata
     }
 
-    // async login(username: string, password: string): Promise<{err: ServiceError | null, res: LoginResponse | null}> {
-      async login(username: string, password: string) {
+    login(username: string, password: string, cb: (error: ServiceError | null, responseMessage: LoginResponse | null) => void) {
       const request = new LoginRequest();
-      const metadata: grpc.Metadata = this.getMetadata();
-
       request.setUsername(username)
       request.setPassword(password)
-
-      const resp: any = await this.client.login(request, (err: ServiceError | null, res: LoginResponse | null) => {
-        console.log("icicici")
-      });
+      this.client.login(request, cb);
     }
 
     async signUp(username: string, password: string, isAdmin: boolean = false) {
