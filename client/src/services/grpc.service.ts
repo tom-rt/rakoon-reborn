@@ -7,7 +7,7 @@ export class GrpcService {
     private client: UserServiceClient;
 
     constructor() {
-        this.serverUrl = process.env.REACT_APP_SERVER_URL || "";
+        this.serverUrl = process.env.REACT_APP_SERVER_URL || ""
         this.client = new UserServiceClient(this.serverUrl)
     }
 
@@ -25,13 +25,14 @@ export class GrpcService {
     }
 
     async signUp(username: string, password: string, isAdmin: boolean = false) {
-      const request = new SignUpRequest();
+      const request = new SignUpRequest()
+      const metadata = this.getMetadata()
 
       request.setUsername(username)
       request.setPassword(password)
       request.setIsadmin(isAdmin)
       
-      await this.client.signUp(request, (error: ServiceError | null, res: SignUpResponse | null) => {
+      await this.client.signUp(request, metadata, (error: ServiceError | null, res: SignUpResponse | null) => {
         if (error) {
           console.error(`Error ${error.code}: ${error.message}`)
         } else {

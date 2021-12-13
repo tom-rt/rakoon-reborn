@@ -21,10 +21,10 @@ class Login extends React.Component<
   login = (event: FormEvent) => {
     event.preventDefault();
     this.state.grpcService.login(this.state.userName, this.state.password, this.loginCallback)
-    this.cleanForm()
   };
 
   loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
+    this.cleanForm()
     if (err) {
       console.log("error occured while logging in:", err)
     } else {
