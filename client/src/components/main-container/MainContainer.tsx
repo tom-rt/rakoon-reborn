@@ -1,11 +1,15 @@
 import React from 'react';
 import Login from '../login/Login';
+import ReactDOM from "react-dom";
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
-import Desktop from '../login/Desktop';
+
+
+import Desktop from '../desktop/Desktop';
 
 class MainContainer extends React.Component {
   constructor(props: any) {
@@ -21,13 +25,19 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div className="MainContainer bg-gray-50 flex flex-col w-full p-24">
-  <BrowserRouter>       
+  <Router>
   <Routes>
-        <Route path="/" element={<Desktop />} />
+        <Route path="/" element={<Navigate to ="/login" />}/>
         <Route path="/login" element={<Login />} />
-        {/* <Route path="about" element={<About />} /> */}
+        <Route path="/desktop" element={<Desktop />} />
+        <Route path="*" element={
+          <main style={{ padding: "1rem" }}>
+            <p>There's nothing here!</p>
+          </main>
+        }
+        />
   </Routes>
-        </BrowserRouter>
+        </Router>
       </div>
     );
   }

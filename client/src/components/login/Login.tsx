@@ -3,11 +3,13 @@ import { createImportSpecifier } from "typescript";
 import { GrpcService } from "../../services/grpc.service";
 import { LoginRequest, LoginResponse, SignUpRequest, SignUpResponse } from "../../pbs/user_pb"
 import { UserServiceClient, ServiceError } from '../../pbs/user_pb_service';
+import { useNavigate } from "react-router-dom";
 
 class Login extends React.Component<
   {},
   { userName: string; password: string; isFormValid: boolean, grpcService: GrpcService }
 > {
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -21,6 +23,8 @@ class Login extends React.Component<
   login = (event: FormEvent) => {
     event.preventDefault();
     this.state.grpcService.login(this.state.userName, this.state.password, this.loginCallback)
+    const navigate = useNavigate()
+    navigate("../success", { replace: true });
   };
 
   loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
