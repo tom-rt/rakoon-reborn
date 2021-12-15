@@ -3,18 +3,30 @@ import Footer from './components/footer/Footer';
 import MainContainer from './components/main-container/MainContainer';
 import React from 'react';
 
-class App extends React.Component {
-  constructor(props: any) {
-    super(props)
-    this.state = {}
-  }
+// class App extends React.Component {
+//   constructor(props: any) {
+//     super(props)
+//     this.state = {}
+//   }
 
-  componentDidMount() { 
-  }
+//   componentDidMount() { 
+//   }
 
-  componentWillUnmount() {  }
+//   componentWillUnmount() {  }
 
-  render() {
+//   render() {
+//     return (
+//       <div className="App bg-gray-50">
+//           <TopBar />
+//           <MainContainer />
+//           <Footer />
+//       </div>
+//     );
+//   }
+
+// }
+
+function App() {
     return (
       <div className="App bg-gray-50">
           <TopBar />
@@ -22,8 +34,6 @@ class App extends React.Component {
           <Footer />
       </div>
     );
-  }
-
 }
 
 export default App;

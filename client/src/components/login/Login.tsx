@@ -1,34 +1,42 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import { createImportSpecifier } from "typescript";
 import { GrpcService } from "../../services/grpc.service";
 import { LoginRequest, LoginResponse, SignUpRequest, SignUpResponse } from "../../pbs/user_pb"
 import { UserServiceClient, ServiceError } from '../../pbs/user_pb_service';
 import { useNavigate } from "react-router-dom";
 
-class Login extends React.Component<
-  {},
-  { userName: string; password: string; isFormValid: boolean, grpcService: GrpcService }
-> {
+function Login() {
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      userName: "",
-      password: "",
-      isFormValid: false,
-      grpcService: new GrpcService()
-    };
-  }
+  // constructor(props: any) {
+  //   super(props);
+  //   this.state = {
+  //     userName: "",
+  //     password: "",
+  //     isFormValid: false,
+  //     grpcService: new GrpcService()
+  //   };
+  // }
+  // const [userName, setUserName] = useState("")
+  // const [password, setPassword] = useState("")
+  // const [isFormValid, setIsFormValid] = useState(false)
 
-  login = (event: FormEvent) => {
+  const [state, setState] = React.useState({
+    userName: "",
+    password: "",
+    isFormValid: false
+  })
+  const grpcService = new GrpcService()
+
+
+  const login = (event: FormEvent) => {
     event.preventDefault();
-    this.state.grpcService.login(this.state.userName, this.state.password, this.loginCallback)
-    const navigate = useNavigate()
-    navigate("../success", { replace: true });
+    grpcService.login(state.userName, state.password, loginCallback)
+    // const navigate = useNavigate()
+    // navigate("../success", { replace: true });
   };
 
-  loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
-    this.cleanForm()
+  const loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
+    cleanForm()
     if (err) {
       console.log("error occured while logging in:", err)
     } else {
@@ -37,56 +45,62 @@ class Login extends React.Component<
     }
   }
 
-  signUp = (event: FormEvent) => {
+  const signUp = (event: FormEvent) => {
     event.preventDefault();
-    this.state.grpcService.signUp(this.state.userName, this.state.password, true)
-    this.cleanForm()
+    grpcService.signUp(state.userName, state.password, true)
+    cleanForm()
   };
 
-  cleanForm = () => {
-    this.setState({
-      userName: '',
-      password: '',
-      isFormValid: false
-    });
-
+  const cleanForm = () => {
+    setState(
+      {
+        userName: "",
+        password: "",
+        isFormValid: false    
+      }
+    )
   }
 
-  checkFormValidity = () => {
-    if (this.state.userName.length === 0 || this.state.password.length === 0) {
-      this.setState({ isFormValid: false });
+  const checkFormValidity = () => {
+    console.log(state)
+    if (state.userName.length === 0 || state.password.length === 0) {
+      setState(prevState => ({
+          ...prevState,
+          isFormValid: false
+      }));
     } else {
-      this.setState({ isFormValid: true });
-    }
+      setState(prevState => ({
+        ...prevState,
+        isFormValid: true
+    }));
+  }
   }
 
-  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name: string = e.target.name;
-    const value: string = e.target.value;
-
-    // Nasty workaround (as any), see following bug:
-    // https://github.com/Microsoft/TypeScript/issues/13948
-    this.setState({ [name]: value} as any, this.checkFormValidity);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setState(prevState => ({
+        ...prevState,
+        [name]: value
+    }));
   };
 
-  componentDidMount = () => {};
+  useEffect(() => {
+    checkFormValidity()
+  }, [state.userName, state.password]);
 
-  componentWillUnmount = () => {};
-
-  render = () => {
     return (
       <div className="Login flex w-full">
         <div className="w-full flex flex-col rounded px-4 py-4">
           <div className="fredoka text-4xl mb-3">Connexion:</div>
-          <form onSubmit={this.login.bind(this)}>
+          <form onSubmit={login}>
             <div>Identifiant:</div>
             <div className="mb-2">
               <input
                 name="userName"
                 type="text"
-                value={this.state.userName}
+                value={state.userName}
                 className="w-2/4 border border-gray-700 border-opactity-100 rounded pl-1"
-                onChange={this.handleInputChange}
+                onChange={handleInputChange}
               ></input>
             </div>
             <div>Mot de passe:</div>
@@ -94,9 +108,9 @@ class Login extends React.Component<
               <input
                 name="password"
                 type="password"
-                value={this.state.password}
+                value={state.password}
                 className="w-2/4 border border-gray-700 border-opactity-100 rounded pl-1"
-                onChange={this.handleInputChange}
+                onChange={handleInputChange}
               ></input>
             </div>
             <div>
@@ -104,11 +118,11 @@ class Login extends React.Component<
                 type="submit"
                 className={
                   "p-2 text-gray-100 rounded " +
-                  (this.state.isFormValid
+                  (state.isFormValid
                     ? "bg-blue-500"
                     : "bg-gray-300 cursor-default")
                 }
-                disabled={!this.state.isFormValid}
+                disabled={!state.isFormValid}
               >
                 Connexion
               </button>
@@ -117,12 +131,12 @@ class Login extends React.Component<
               <button
                 className={
                   "p-2 text-gray-100 rounded " +
-                  (this.state.isFormValid
+                  (state.isFormValid
                     ? "bg-blue-500"
                     : "bg-gray-300 cursor-default")
                 }
-                disabled={!this.state.isFormValid}
-                onClick={this.signUp}
+                disabled={!state.isFormValid}
+                onClick={signUp}
               >
                 Inscription
               </button>
@@ -131,7 +145,6 @@ class Login extends React.Component<
         </div>
       </div>
     );
-  };
 }
 
 export default Login;
