@@ -1,24 +1,10 @@
-import React, { FormEvent, useState, useEffect } from "react";
-import { createImportSpecifier } from "typescript";
+import React, { FormEvent, useEffect } from "react";
 import { GrpcService } from "../../services/grpc.service";
-import { LoginRequest, LoginResponse, SignUpRequest, SignUpResponse } from "../../pbs/user_pb"
-import { UserServiceClient, ServiceError } from '../../pbs/user_pb_service';
+import { LoginResponse } from "../../pbs/user_pb"
+import { ServiceError } from '../../pbs/user_pb_service';
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-
-  // constructor(props: any) {
-  //   super(props);
-  //   this.state = {
-  //     userName: "",
-  //     password: "",
-  //     isFormValid: false,
-  //     grpcService: new GrpcService()
-  //   };
-  // }
-  // const [userName, setUserName] = useState("")
-  // const [password, setPassword] = useState("")
-  // const [isFormValid, setIsFormValid] = useState(false)
 
   const [state, setState] = React.useState({
     userName: "",
@@ -26,13 +12,11 @@ function Login() {
     isFormValid: false
   })
   const grpcService = new GrpcService()
-
+  const navigate = useNavigate();
 
   const login = (event: FormEvent) => {
     event.preventDefault();
     grpcService.login(state.userName, state.password, loginCallback)
-    // const navigate = useNavigate()
-    // navigate("../success", { replace: true });
   };
 
   const loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
@@ -42,6 +26,7 @@ function Login() {
     } else {
       console.log("logging responded granted: ", resp?.getGranted())
       console.log("logging responded token: ", resp?.getToken())
+      navigate('/desktop')
     }
   }
 
