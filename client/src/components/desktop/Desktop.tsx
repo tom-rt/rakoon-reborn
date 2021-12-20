@@ -1,5 +1,6 @@
-import React from "react";
 import { GrpcService } from "../../services/grpc.service";
+import { Context } from '../../context'
+import React, { FormEvent, useContext, useEffect } from "react"
 
 function Desktop() {
 
@@ -8,11 +9,13 @@ function Desktop() {
     password: "",
     isFormValid: false
   })
+
+  const context = useContext(Context)
   const grpcService = new GrpcService()
 
     return (
       <div className="Desktop flex w-full">
-          Desktop
+          Desktop {context.user.username}
       </div>
     );
 }

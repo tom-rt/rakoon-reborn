@@ -1,8 +1,9 @@
-import React, { FormEvent, useEffect } from "react";
-import { GrpcService } from "../../services/grpc.service";
+import React, { FormEvent, useContext, useEffect } from "react"
+import { GrpcService } from "../../services/grpc.service"
 import { LoginResponse } from "../../pbs/user_pb"
-import { ServiceError } from '../../pbs/user_pb_service';
-import { useNavigate } from "react-router-dom";
+import { ServiceError } from '../../pbs/user_pb_service'
+import { useNavigate } from "react-router-dom"
+import { Context } from '../../context'
 
 function Login() {
 
@@ -11,13 +12,15 @@ function Login() {
     password: "",
     isFormValid: false
   })
+
+  const context = useContext(Context)
   const grpcService = new GrpcService()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const login = (event: FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
     grpcService.login(state.userName, state.password, loginCallback)
-  };
+  }
 
   const loginCallback = (err: ServiceError | null, resp: LoginResponse | null) => {
     cleanForm()
@@ -26,15 +29,16 @@ function Login() {
     } else {
       console.log("logging responded granted: ", resp?.getGranted())
       console.log("logging responded token: ", resp?.getToken())
+      context.user.username = state.userName
       navigate('/desktop')
     }
   }
 
   const signUp = (event: FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
     grpcService.signUp(state.userName, state.password, true)
     cleanForm()
-  };
+  }
 
   const cleanForm = () => {
     setState(
@@ -52,26 +56,26 @@ function Login() {
       setState(prevState => ({
           ...prevState,
           isFormValid: false
-      }));
+      }))
     } else {
       setState(prevState => ({
         ...prevState,
         isFormValid: true
-    }));
+    }))
   }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setState(prevState => ({
         ...prevState,
         [name]: value
-    }));
-  };
+    }))
+  }
 
   useEffect(() => {
     checkFormValidity()
-  }, [state.userName, state.password]);
+  }, [state.userName, state.password])
 
     return (
       <div className="Login flex w-full">
@@ -129,7 +133,7 @@ function Login() {
           </form>
         </div>
       </div>
-    );
+    )
 }
 
-export default Login;
+export default Login

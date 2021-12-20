@@ -43,3 +43,7 @@
 # pbs
 /server/pbs
 /client/src/pbs
+
+# SERVER
+
+/server/rakoon.db
