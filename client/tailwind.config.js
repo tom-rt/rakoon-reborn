@@ -5,6 +5,15 @@ module.exports = {
     maxWidth: {
       1: "1rem",
     },
+    minWidth: {
+      2: "2rem",
+    },
+    minHeight: {
+      2: "2rem",
+    },
+    borderRadius: {
+      full: "50%",
+    },
     extend: {},
   },
   variants: {
