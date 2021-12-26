@@ -2,6 +2,10 @@ import { GrpcService } from "../../services/grpc.service";
 import { Context } from "../../context";
 import React, { FormEvent, useContext, useEffect } from "react";
 import Modal from "../modal/Modal";
+import folder from "../../assets/img/folder.png";
+import file from "../../assets/img/file.png";
+import download from "../../assets/img/download.png";
+import remove from "../../assets/img/remove.png";
 
 function FileTable() {
   const [state, setState] = React.useState({
@@ -29,27 +33,53 @@ function FileTable() {
     <div className="FileTable flex flex-col w-full">
       <table>
         <tr className="text-lg border-b border-gray-300">
-          <th className="text-center max-w-1">Type</th>
+          <th className="text-center">Type</th>
           <th className="text-left">Nom</th>
-          <th className="text-left">Crée le</th>
+          <th className="text-center">Crée le</th>
+          <th className="text-center"></th>
+          <th className="text-center"></th>
         </tr>
-        <tr className="border-b border-gray-300">
-          <td className="flex justify-center">
-            <div className="min-w-2 min-h-2 rounded-full flex justify-center items-center bg-yellow-400 border border-gray-700">
-              D
+
+        <tr className="border-b border-gray-300 hover:bg-gray-300">
+          <td>
+            <div className="flex w-full h-full align-center justify-center">
+              <img src={folder} className="max-w-2 max-h-2" />
             </div>
           </td>
-          <td className="text-left">Maria Anders</td>
-          <td className="text-left">Germany</td>
-        </tr>
-        <tr className="border-b border-gray-300">
-          <td className="flex justify-center">
-            <div className="min-w-2 min-h-2 rounded-full flex justify-center items-center bg-gray-50 border border-gray-700">
-              F
+
+          <td className="text-left">
+            Nom de dossierNom de dossierNom de dossierNom de dossierNom de
+            dossierNom de dossierNom de dossierNom de dossier
+          </td>
+          <td className="text-center">18 Avril 2021</td>
+          <td className="px-2">
+            <div className="flex w-full justify-center">
+              <button className="flex w-full align-center rounded justify-center bg-blue-500 py-1">
+                <img
+                  src={download}
+                  className="max-w-2 max-h-2"
+                  style={{
+                    filter:
+                      "invert(96%) sepia(0%) saturate(15%) hue-rotate(326deg) brightness(105%) contrast(104%)",
+                  }}
+                />
+              </button>
             </div>
           </td>
-          <td className="text-left">Francisco Chang</td>
-          <td className="text-left">Mexico</td>
+          <td className="px-2">
+            <div className="flex w-full justify-center">
+              <button className="flex w-full align-center rounded justify-center bg-red-500 py-1 max-w-4">
+                <img
+                  src={remove}
+                  className="max-w-2 max-h-2"
+                  style={{
+                    filter:
+                      "invert(96%) sepia(0%) saturate(15%) hue-rotate(326deg) brightness(105%) contrast(104%)",
+                  }}
+                />
+              </button>
+            </div>
+          </td>
         </tr>
       </table>
     </div>
