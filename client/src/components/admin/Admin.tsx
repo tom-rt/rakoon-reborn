@@ -7,7 +7,7 @@ import file from "../../assets/img/file.png";
 import download from "../../assets/img/download.png";
 import remove from "../../assets/img/remove.png";
 
-function FileTable() {
+function Admin() {
   const [state, setState] = React.useState({
     isModalOpen: false,
   });
@@ -30,7 +30,7 @@ function FileTable() {
   };
 
   return (
-    <div className="FileTable flex flex-col w-full">
+    <div className="Admin flex flex-col w-full">
       <table>
         <tr className="text-lg border-b border-gray-300">
           <th className="text-center">Type</th>
@@ -121,4 +121,4 @@ function FileTable() {
   );
 }
 
-export default FileTable;
+export default Admin;

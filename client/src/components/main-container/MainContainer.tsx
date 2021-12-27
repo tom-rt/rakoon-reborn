@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import Desktop from "../desktop/Desktop";
+import Admin from "../admin/Admin";
 
 class MainContainer extends React.Component {
   constructor(props: any) {
@@ -28,6 +29,7 @@ class MainContainer extends React.Component {
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/desktop" element={<Desktop />} />
+            <Route path="/admin" element={<Admin />} />
             <Route
               path="*"
               element={
