@@ -24,22 +24,20 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div className="MainContainer bg-gray-50 flex flex-col w-full py-24 px-2">
-        <Router>
-          <Routes>
-            <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/desktop" element={<Desktop />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/desktop" element={<Desktop />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
       </div>
     );
   }
