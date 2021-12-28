@@ -7,7 +7,7 @@ import React, {
   MouseEventHandler,
 } from "react";
 
-function Modal(props: { closeModal: any }) {
+function FileModal(props: { closeModal: any }) {
   const [state, setState] = React.useState({
     selectOption: true,
     createFolder: false,
@@ -159,4 +159,4 @@ function Modal(props: { closeModal: any }) {
   );
 }
 
-export default Modal;
+export default FileModal;

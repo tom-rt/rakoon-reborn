@@ -1,7 +1,7 @@
 import { GrpcService } from "../../services/grpc.service";
 import { Context } from "../../context";
 import React, { FormEvent, useContext, useEffect } from "react";
-import Modal from "../modal/Modal";
+import FileModal from "../file-modal/FileModal";
 import folder from "../../assets/img/folder.png";
 import file from "../../assets/img/file.png";
 import download from "../../assets/img/download.png";

@@ -52,7 +52,6 @@ function Login() {
   };
 
   const checkFormValidity = () => {
-    console.log(state);
     if (state.userName.length === 0 || state.password.length === 0) {
       setState((prevState) => ({
         ...prevState,
