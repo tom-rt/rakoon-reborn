@@ -37,11 +37,11 @@ function Login() {
     }
   };
 
-  const signUp = (event: FormEvent) => {
-    event.preventDefault();
-    grpcService.signUp(state.userName, state.password, true);
-    cleanForm();
-  };
+  // const signUp = (event: FormEvent) => {
+  //   event.preventDefault();
+  //   grpcService.signUp(state.userName, state.password, true);
+  //   cleanForm();
+  // };
 
   const cleanForm = () => {
     setState({
@@ -118,7 +118,7 @@ function Login() {
                   Connexion
                 </button>
               </div>
-              <div>
+              {/* <div>
                 <button
                   className={
                     "p-2 text-gray-100 rounded " +
@@ -131,7 +131,7 @@ function Login() {
                 >
                   Inscription
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
           <div className="flex w-full justify-end pb-20">

@@ -19,7 +19,20 @@ function UserModal(props: { closeModal: any }) {
     event.stopPropagation();
   };
 
-  const createUser = () => {};
+  const cleanForm = () => {
+    setState({
+      userName: "",
+      password: "",
+      isAdmin: false,
+      isFormValid: false,
+    });
+  };
+
+  const createUser = (event: FormEvent) => {
+    event.preventDefault();
+    grpcService.signUp(state.userName, state.password, true, closeModal);
+    cleanForm();
+  };
 
   const checkFormValidity = () => {
     let isFormValid: boolean = false;
