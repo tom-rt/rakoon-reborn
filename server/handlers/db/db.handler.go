@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"log"
 
 	models "rakoon-reborn/models"
@@ -26,17 +27,19 @@ func GetUserByName(username string) (models.RakoonUser, error) {
 	var reqUsername string
 	var password string
 	var salt string
+	var isAdmin int
 
-	rows, err := db.Query("select id, username, password, salt from rakoon_user WHERE username = '" + username + "';")
+	rows, err := db.Query("select id, username, password, salt, is_admin from rakoon_user WHERE username = '" + username + "';")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	rows.Next()
-	err = rows.Scan(&id, &reqUsername, &password, &salt)
+	err = rows.Scan(&id, &reqUsername, &password, &salt, &isAdmin)
+	fmt.Println(isAdmin)
 
 	defer rows.Close()
-	return models.RakoonUser{Id: id, Username: reqUsername, Password: password, Salt: salt}, err
+	return models.RakoonUser{Id: id, Username: reqUsername, Password: password, Salt: salt, IsAdmin: isAdmin == 1}, err
 }
 
 // Sign up Rpc

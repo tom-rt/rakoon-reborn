@@ -4,7 +4,7 @@ import React, { FormEvent, useContext, useEffect } from "react";
 
 function UserModal(props: { closeModal: any }) {
   const [state, setState] = React.useState({
-    userName: "",
+    username: "",
     password: "",
     isAdmin: false,
     isFormValid: false,
@@ -21,7 +21,7 @@ function UserModal(props: { closeModal: any }) {
 
   const cleanForm = () => {
     setState({
-      userName: "",
+      username: "",
       password: "",
       isAdmin: false,
       isFormValid: false,
@@ -31,7 +31,7 @@ function UserModal(props: { closeModal: any }) {
   const createUser = (event: FormEvent) => {
     event.preventDefault();
     grpcService.signUp(
-      state.userName,
+      state.username,
       state.password,
       state.isAdmin,
       closeModal
@@ -41,7 +41,7 @@ function UserModal(props: { closeModal: any }) {
 
   const checkFormValidity = () => {
     let isFormValid: boolean = false;
-    if (state.userName.length > 0 && state.password.length > 0) {
+    if (state.username.length > 0 && state.password.length > 0) {
       isFormValid = true;
     }
     setState((prevState) => ({
@@ -52,7 +52,7 @@ function UserModal(props: { closeModal: any }) {
 
   useEffect(() => {
     checkFormValidity();
-  }, [state.userName, state.password]);
+  }, [state.username, state.password]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -86,9 +86,9 @@ function UserModal(props: { closeModal: any }) {
             <div>Nom :</div>
             <div className="mb-2">
               <input
-                name="userName"
+                name="username"
                 type="text"
-                value={state.userName}
+                value={state.username}
                 className="border border-gray-700 border-opactity-100 rounded pl-1"
                 onChange={handleInputChange}
               ></input>

@@ -18,7 +18,6 @@ const TopBar = forwardRef((props: any, ref: any) => {
 
   useImperativeHandle(ref, () => ({
     refresh() {
-      console.log("refresh in top bar");
       setState(() => ({
         isLoggedIn: context.user.isLoggedIn,
         isAdmin: context.user.isAdmin,
@@ -33,6 +32,15 @@ const TopBar = forwardRef((props: any, ref: any) => {
     navigate("/desktop");
   };
   const navLogin = () => {
+    context.user.username = "";
+    context.user.token = "";
+    context.user.isAdmin = false;
+    context.user.isLoggedIn = false;
+    setState(() => ({
+      isLoggedIn: context.user.isLoggedIn,
+      isAdmin: context.user.isAdmin,
+    }));
+
     navigate("/login");
   };
 
@@ -54,7 +62,7 @@ const TopBar = forwardRef((props: any, ref: any) => {
       </div>
       <div className="flex w-full justify-end flex-row">
         <div className="flex items-center justify-center ml-4">
-          {state.isAdmin && (
+          {state.isLoggedIn && state.isAdmin && (
             <button
               className="text-gray-100 border rounded p-2 mr-2"
               onClick={navAdmin}

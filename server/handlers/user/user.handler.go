@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
-	db "rakoon-reborn/feature/db"
+	db "rakoon-reborn/handlers/db"
 	"time"
 
 	pbs "rakoon-reborn/pbs"
@@ -38,7 +38,8 @@ func (s UserServiceServer) Login(ctx context.Context, input *pbs.LoginRequest) (
 	} else {
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-			"foo": "bar",
+			"username": user.Username,
+			"isAdmin": user.IsAdmin,
 			"nbf": time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 		})
 
@@ -48,13 +49,13 @@ func (s UserServiceServer) Login(ctx context.Context, input *pbs.LoginRequest) (
 			return nil, status.Error(codes.Internal, "Error generating token.")
 		}
 
-		return &pbs.LoginResponse{Token: tokenString}, nil
+		return &pbs.LoginResponse{Token: tokenString, IsAdmin: user.IsAdmin}, nil
 	}
 }
 
 // Sign Up Rpc
 func (s UserServiceServer) SignUp(ctx context.Context, input *pbs.SignUpRequest) (*pbs.SignUpResponse, error) {
-	user, err := db.GetUserByName(input.UserName)
+	user, err := db.GetUserByName(input.Username)
 
 	// Check err ?
 	if user.Id != 0 {
@@ -70,7 +71,7 @@ func (s UserServiceServer) SignUp(ctx context.Context, input *pbs.SignUpRequest)
 		return &pbs.SignUpResponse{Message: "Error hashing password."}, nil
 	}
 
-	err = db.SignUserUp(input.UserName, hash, salt, input.IsAdmin)
+	err = db.SignUserUp(input.Username, hash, salt, input.IsAdmin)
 
 	if err != nil {
 		return &pbs.SignUpResponse{Message: "Error inserting user in db."}, nil

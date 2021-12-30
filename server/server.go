@@ -5,9 +5,9 @@ import (
 	"log"
 	"net"
 
-	"rakoon-reborn/feature/db"
-	file "rakoon-reborn/feature/file"
-	user "rakoon-reborn/feature/user"
+	"rakoon-reborn/handlers/db"
+	file "rakoon-reborn/handlers/file"
+	user "rakoon-reborn/handlers/user"
 	pbs "rakoon-reborn/pbs"
 
 	"google.golang.org/grpc"

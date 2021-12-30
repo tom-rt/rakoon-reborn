@@ -5,4 +5,5 @@ type RakoonUser struct {
 	Username string
 	Password string
 	Salt string
+	IsAdmin bool
 }

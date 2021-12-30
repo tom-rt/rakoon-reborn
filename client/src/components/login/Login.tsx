@@ -8,7 +8,7 @@ import fileIllustration from "../../assets/img/file-illustration.svg";
 
 const Login = (props: any) => {
   const [state, setState] = React.useState({
-    userName: "",
+    username: "",
     password: "",
     isFormValid: false,
   });
@@ -19,7 +19,7 @@ const Login = (props: any) => {
 
   const login = (event: FormEvent) => {
     event.preventDefault();
-    grpcService.login(state.userName, state.password, loginCallback);
+    grpcService.login(state.username, state.password, loginCallback);
   };
 
   const loginCallback = (
@@ -32,10 +32,12 @@ const Login = (props: any) => {
       console.log("error occured while logging in:", err);
     } else {
       // TODO toast success
-      context.user.username = state.userName;
+      console.log(resp?.getToken());
+      console.log(resp?.getIsadmin());
+      context.user.username = state.username;
       context.user.isAdmin = resp?.getIsadmin() || false;
       context.user.isLoggedIn = true;
-      context.user.username = state.userName;
+      context.user.username = state.username;
       props.refreshTopBar();
       navigate("/desktop");
     }
@@ -43,14 +45,14 @@ const Login = (props: any) => {
 
   const cleanForm = () => {
     setState({
-      userName: "",
+      username: "",
       password: "",
       isFormValid: false,
     });
   };
 
   const checkFormValidity = () => {
-    if (state.userName.length === 0 || state.password.length === 0) {
+    if (state.username.length === 0 || state.password.length === 0) {
       setState((prevState) => ({
         ...prevState,
         isFormValid: false,
@@ -74,7 +76,7 @@ const Login = (props: any) => {
   useEffect(() => {
     console.log("init desktop");
     checkFormValidity();
-  }, [state.userName, state.password]);
+  }, [state.username, state.password]);
 
   return (
     <div className="Login flex w-full">
@@ -86,9 +88,9 @@ const Login = (props: any) => {
               <div>Identifiant:</div>
               <div className="flex w-full mb-2">
                 <input
-                  name="userName"
+                  name="username"
                   type="text"
-                  value={state.userName}
+                  value={state.username}
                   className="w-10/12 border border-gray-700 border-opactity-100 rounded pl-1"
                   onChange={handleInputChange}
                 ></input>

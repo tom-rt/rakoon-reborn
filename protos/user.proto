@@ -21,15 +21,13 @@ message LoginRequest {
   string Password = 2;
 }
 message LoginResponse {
-  bool Granted = 1;
-  string Token = 2;
-  string Message = 3;
-  bool IsAdmin = 4;
+  string Token = 1;
+  bool IsAdmin = 2;
 }
 
 // SIGN UP
 message SignUpRequest {
-  string UserName = 1;
+  string Username = 1;
   string Password = 2;
   bool IsAdmin = 3;
 }
