@@ -30,7 +30,12 @@ function UserModal(props: { closeModal: any }) {
 
   const createUser = (event: FormEvent) => {
     event.preventDefault();
-    grpcService.signUp(state.userName, state.password, true, closeModal);
+    grpcService.signUp(
+      state.userName,
+      state.password,
+      state.isAdmin,
+      closeModal
+    );
     cleanForm();
   };
 

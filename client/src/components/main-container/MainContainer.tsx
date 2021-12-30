@@ -11,36 +11,33 @@ import {
 import Desktop from "../desktop/Desktop";
 import Admin from "../admin/Admin";
 
-class MainContainer extends React.Component {
-  constructor(props: any) {
-    super(props);
-    this.state = {};
-  }
+const MainContainer = (props: any) => {
+  const refreshTopBar = () => {
+    console.log("refresh top bar main container");
+    props.refreshTopBar();
+  };
 
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  render() {
-    return (
-      <div className="MainContainer bg-gray-50 flex flex-col w-full py-24 px-2">
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/desktop" element={<Desktop />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="MainContainer bg-gray-50 flex flex-col w-full py-24 px-2">
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route
+          path="*"
+          element={
+            <main style={{ padding: "1rem" }}>
+              <p>There's nothing here!</p>
+            </main>
+          }
+        />
+        <Route
+          path="/login"
+          element={<Login refreshTopBar={refreshTopBar} />}
+        />
+        <Route path="/desktop" element={<Desktop />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </div>
+  );
+};
 
 export default MainContainer;

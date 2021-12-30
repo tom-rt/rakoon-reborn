@@ -41,10 +41,17 @@ func GetUserByName(username string) (models.RakoonUser, error) {
 
 // Sign up Rpc
 func SignUserUp (username string, password string, salt string, isAdmin bool) error {
+	var dbIsAdmin string
+	if isAdmin {
+		dbIsAdmin = "1"
+	} else {
+		dbIsAdmin = "0"
+	}
+
 	statement := `
 		INSERT INTO
-			rakoon_user (username, password, salt)
-			VALUES ('` + username + `','` + password + `','` + salt +`')
+			rakoon_user (username, password, salt, is_admin)
+			VALUES ('` + username + `','` + password + `','` + salt + `','` + dbIsAdmin +`')
 		;`
 	_, err := db.Exec(statement)
 	if err != nil {

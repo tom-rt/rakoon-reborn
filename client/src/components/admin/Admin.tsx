@@ -21,6 +21,10 @@ function Admin() {
     }));
   };
 
+  useEffect(() => {
+    console.log("did mount");
+  }, []);
+
   const closeModal = () => {
     setState((prevState) => ({
       ...prevState,

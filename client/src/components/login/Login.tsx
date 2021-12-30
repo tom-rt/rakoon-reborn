@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../context";
 import fileIllustration from "../../assets/img/file-illustration.svg";
 
-function Login() {
+const Login = (props: any) => {
   const [state, setState] = React.useState({
     userName: "",
     password: "",
@@ -33,15 +33,13 @@ function Login() {
     } else {
       // TODO toast success
       context.user.username = state.userName;
+      context.user.isAdmin = resp?.getIsadmin() || false;
+      context.user.isLoggedIn = true;
+      context.user.username = state.userName;
+      props.refreshTopBar();
       navigate("/desktop");
     }
   };
-
-  // const signUp = (event: FormEvent) => {
-  //   event.preventDefault();
-  //   grpcService.signUp(state.userName, state.password, true);
-  //   cleanForm();
-  // };
 
   const cleanForm = () => {
     setState({
@@ -74,6 +72,7 @@ function Login() {
   };
 
   useEffect(() => {
+    console.log("init desktop");
     checkFormValidity();
   }, [state.userName, state.password]);
 
@@ -118,20 +117,6 @@ function Login() {
                   Connexion
                 </button>
               </div>
-              {/* <div>
-                <button
-                  className={
-                    "p-2 text-gray-100 rounded " +
-                    (state.isFormValid
-                      ? "bg-blue-500"
-                      : "bg-gray-300 cursor-default")
-                  }
-                  disabled={!state.isFormValid}
-                  onClick={signUp}
-                >
-                  Inscription
-                </button>
-              </div> */}
             </form>
           </div>
           <div className="flex w-full justify-end pb-20">
@@ -141,6 +126,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

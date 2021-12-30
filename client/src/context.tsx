@@ -1,11 +1,12 @@
 import React from "react";
 
 export const defaultContext = {
-    user: {
-        username: "",
-        password: "",
-        token: ""
-    }
-  };
-  
-  export const Context = React.createContext( defaultContext );
+  user: {
+    username: "",
+    token: "",
+    isAdmin: false,
+    isLoggedIn: false,
+  },
+};
+
+export const Context = React.createContext(defaultContext);

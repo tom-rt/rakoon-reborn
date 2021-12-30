@@ -7,6 +7,12 @@ package user;
 service UserService {
   rpc Login(LoginRequest) returns (LoginResponse) {}
   rpc SignUp(SignUpRequest) returns (SignUpResponse) {}
+  rpc GetUserList(UserListRequest) returns (UserListResponse) {}
+}
+
+message User {
+  string UserName = 1;
+  string Password = 2;
 }
 
 // LOGIN
@@ -29,4 +35,13 @@ message SignUpRequest {
 }
 message SignUpResponse {
   string Message = 1;
+}
+
+// USER LIST
+message UserListRequest {
+  string Token = 1;
+}
+
+message UserListResponse {
+  repeated User UserList = 1;
 }

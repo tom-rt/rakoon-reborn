@@ -10,4 +10,6 @@ CREATE TABLE rakoon_user (
     salt text
 );
 
+INSERT INTO rakoon_user (username, password, is_admin, salt) VALUES ('admin', '$2a$14$anezLZS2OTMjohBIW53ij.FVuauDaHmspIwfrNNeDldqEarbXPOau', 1, 'LDnJObCsNV');
+
 COMMIT;
