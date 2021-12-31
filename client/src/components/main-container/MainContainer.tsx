@@ -12,11 +12,6 @@ import Desktop from "../desktop/Desktop";
 import Admin from "../admin/Admin";
 
 const MainContainer = (props: any) => {
-  const refreshTopBar = () => {
-    console.log("refresh top bar main container");
-    props.refreshTopBar();
-  };
-
   return (
     <div className="MainContainer bg-gray-50 flex flex-col w-full py-24 px-2">
       <Routes>
@@ -29,10 +24,7 @@ const MainContainer = (props: any) => {
             </main>
           }
         />
-        <Route
-          path="/login"
-          element={<Login refreshTopBar={refreshTopBar} />}
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="/desktop" element={<Desktop />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>

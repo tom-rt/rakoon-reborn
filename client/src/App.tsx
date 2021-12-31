@@ -6,28 +6,12 @@ import MainContainer from "./components/main-container/MainContainer";
 import { forwardRef, useRef, useImperativeHandle } from "react";
 
 function App() {
-  const childRef = useRef();
-  // const childRef = useRef<HTMLInputElement>();
-
-  // const refreshTopBar = () => {
-  //   // refTopBar?.current?.refresh();
-  //   console.log("Ok");
-  // };
-
-  const refreshTopBar = () => {
-    if (childRef?.current != null) {
-      // @ts-ignore
-      childRef.current.refresh();
-    }
-    console.log("refresh top bar APP");
-  };
-
   return (
     <Router>
       <div className="App bg-gray-50">
         <Context.Provider value={defaultContext}></Context.Provider>
-        <TopBar ref={childRef} />
-        <MainContainer refreshTopBar={refreshTopBar} />
+        <TopBar />
+        <MainContainer />
         <Footer />
       </div>
     </Router>

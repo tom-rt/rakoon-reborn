@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../context";
 import fileIllustration from "../../assets/img/file-illustration.svg";
 
-const Login = (props: any) => {
+const Login = () => {
   const [state, setState] = React.useState({
     username: "",
     password: "",
@@ -38,7 +38,6 @@ const Login = (props: any) => {
       context.user.isAdmin = resp?.getIsadmin() || false;
       context.user.isLoggedIn = true;
       context.user.username = state.username;
-      props.refreshTopBar();
       navigate("/desktop");
     }
   };

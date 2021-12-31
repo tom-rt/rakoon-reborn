@@ -11,45 +11,21 @@ const TopBar = forwardRef((props: any, ref: any) => {
   const context = useContext(Context);
   const navigate = useNavigate();
 
-  const [state, setState] = React.useState({
-    isLoggedIn: false,
-    isAdmin: false,
-  });
-
-  useImperativeHandle(ref, () => ({
-    refresh() {
-      setState(() => ({
-        isLoggedIn: context.user.isLoggedIn,
-        isAdmin: context.user.isAdmin,
-      }));
-    },
-  }));
-
   const navAdmin = () => {
     navigate("/admin");
   };
+
   const navDesktop = () => {
     navigate("/desktop");
   };
-  const navLogin = () => {
+
+  const disconnect = () => {
     context.user.username = "";
     context.user.token = "";
     context.user.isAdmin = false;
     context.user.isLoggedIn = false;
-    setState(() => ({
-      isLoggedIn: context.user.isLoggedIn,
-      isAdmin: context.user.isAdmin,
-    }));
-
     navigate("/login");
   };
-
-  useEffect(() => {
-    setState(() => ({
-      isLoggedIn: context.user.isLoggedIn,
-      isAdmin: context.user.isAdmin,
-    }));
-  }, []);
 
   return (
     <div className="TopBar bg-gradient-to-r from-blue-500 to-green-400 h-16 px-3 py-3 flex fixed w-full z-10">
@@ -62,7 +38,7 @@ const TopBar = forwardRef((props: any, ref: any) => {
       </div>
       <div className="flex w-full justify-end flex-row">
         <div className="flex items-center justify-center ml-4">
-          {state.isLoggedIn && state.isAdmin && (
+          {context.user.isLoggedIn && context.user.isAdmin && (
             <button
               className="text-gray-100 border rounded p-2 mr-2"
               onClick={navAdmin}
@@ -70,10 +46,10 @@ const TopBar = forwardRef((props: any, ref: any) => {
               Admin
             </button>
           )}
-          {state.isLoggedIn && (
+          {context.user.isLoggedIn && (
             <button
               className="text-gray-100 border rounded p-2 mr-2"
-              onClick={navLogin}
+              onClick={disconnect}
             >
               Déconnexion
             </button>
