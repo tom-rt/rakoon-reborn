@@ -26,7 +26,6 @@ var hmacSampleSecret []byte = []byte("mega secret key")
 func (s UserServiceServer) Login(ctx context.Context, input *pbs.LoginRequest) (*pbs.LoginResponse, error) {
 	user, err := db.GetUserByName(input.UserName)
 
-	fmt.Println(user, err)
 	if err != nil {
 		return nil, status.Error(codes.NotFound, "User not found.")
 	}
@@ -39,8 +38,8 @@ func (s UserServiceServer) Login(ctx context.Context, input *pbs.LoginRequest) (
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"username": user.Username,
-			"isAdmin": user.IsAdmin,
-			"nbf": time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
+			"isAdmin":  user.IsAdmin,
+			"nbf":      time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
 		})
 
 		tokenString, err := token.SignedString(hmacSampleSecret)

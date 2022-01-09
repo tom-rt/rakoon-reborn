@@ -1,7 +1,6 @@
 package db
 
 import (
-	"fmt"
 	"log"
 
 	models "rakoon-reborn/models"
@@ -36,14 +35,13 @@ func GetUserByName(username string) (models.RakoonUser, error) {
 
 	rows.Next()
 	err = rows.Scan(&id, &reqUsername, &password, &salt, &isAdmin)
-	fmt.Println(isAdmin)
 
 	defer rows.Close()
 	return models.RakoonUser{Id: id, Username: reqUsername, Password: password, Salt: salt, IsAdmin: isAdmin == 1}, err
 }
 
 // Sign up Rpc
-func SignUserUp (username string, password string, salt string, isAdmin bool) error {
+func SignUserUp(username string, password string, salt string, isAdmin bool) error {
 	var dbIsAdmin string
 	if isAdmin {
 		dbIsAdmin = "1"
@@ -54,7 +52,7 @@ func SignUserUp (username string, password string, salt string, isAdmin bool) er
 	statement := `
 		INSERT INTO
 			rakoon_user (username, password, salt, is_admin)
-			VALUES ('` + username + `','` + password + `','` + salt + `','` + dbIsAdmin +`')
+			VALUES ('` + username + `','` + password + `','` + salt + `','` + dbIsAdmin + `')
 		;`
 	_, err := db.Exec(statement)
 	if err != nil {
