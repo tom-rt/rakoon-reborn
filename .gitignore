@@ -45,5 +45,13 @@
 /client/src/pbs
 
 # SERVER
-
 /server/rakoon.db
+
+# CERTS
+/certs/ca-key.pem
+/certs/ca.csr
+/certs/ca.pem
+
+/certs/server-key.pem
+/certs/server.csr
+/certs/server.pem
