@@ -14,22 +14,20 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-# CLIENT
-
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# DEPENDENCIES
 /client/node_modules
 /client/.pnp
 /client/.pnp.js
 
-# testing
+# TESTING
 /client/coverage
 
-# production
+# PRODUCTION
 /client/build
 
-# misc
+# MISC
 /client/.DS_Store
 /client/.env.local
 /client/.env.development.local
@@ -40,18 +38,19 @@
 /client/yarn-debug.log*
 /client/yarn-error.log*
 
-# pbs
+# PBS
 /server/pbs
 /client/src/pbs
 
-# SERVER
+# SQLITE DB
 /server/rakoon.db
 
-# CERTS
+# CERTS CA
 /certs/ca-key.pem
 /certs/ca.csr
 /certs/ca.pem
 
+# CERTS SERVER
 /certs/server-key.pem
 /certs/server.csr
 /certs/server.pem
