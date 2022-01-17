@@ -46,11 +46,11 @@
 /server/rakoon.db
 
 # CERTS CA
-/certs/ca-key.pem
-/certs/ca.csr
-/certs/ca.pem
+/server/certs/ca-key.pem
+/server/certs/ca.csr
+/server/certs/ca.pem
 
 # CERTS SERVER
-/certs/server-key.pem
-/certs/server.csr
-/certs/server.pem
+/server/certs/server-key.pem
+/server/certs/server.csr
+/server/certs/server.pem
