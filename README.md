@@ -1,5 +1,3 @@
-
-https://dev.to/techschoolguru/upload-file-in-chunks-with-client-streaming-grpc-golang-4loc
 # How does it work ?
 
 The architecture is pretty simple:
